@@ -1,9 +1,15 @@
 import React, {useState} from 'react';
 import { login } from '../../api/index';
+import { getMe } from '../../api/index';
+import { useHistory } from 'react-router-dom';
 
+// Login Form
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loggedIn, setLoggedIn] = useState(true);
+
+    const history = useHistory();
 
     return (
         <form>
@@ -27,10 +33,15 @@ const Login = () => {
                 <button onClick={async (e) => {
                     e.preventDefault();
                     const result = await login(username, password)
-                    console.log('Registration: ', result);
+                    console.log('Login: ', result);
+
                     const token = result.token;
-                    console.log("Token is: ", token);
-                    localStorage.setItem('token', token)
+                    localStorage.setItem("token", token);
+                    
+                    localStorage.setItem("user", JSON.stringify(result.user))
+                    console.log("user: ", result.user);
+
+                    history.push("/");
                 }}>
                     LOG IN
                 </button>

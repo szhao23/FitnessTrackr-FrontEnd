@@ -42,7 +42,18 @@ export const login = async (username, password) => {
           password: password
     })
 })
+
     const data = response.json();
     console.log(data);
     return data;
+}
+
+export const getMe = async () => {
+    const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/users/me', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTY2LCJ1c2VybmFtZSI6ImhlbGxvdGhpc2lzYXRlc3QiLCJpYXQiOjE2MjQ5NTUxMDQsImV4cCI6MTYyNTU1OTkwNH0.FQTI6mFkvvUIMbINz8Q73N_3gDBfeoNvm3CnCidX8o4'
+        },
+      })
+      console.log(response);
 }
